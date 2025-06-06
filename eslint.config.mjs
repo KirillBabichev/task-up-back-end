@@ -26,9 +26,13 @@ export default tseslint.config(
   },
   {
     rules: {
+      '@typescript-eslint/interface-name-prefix': 'off',
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/explicit-module-boundary-type': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-floating-promises': 'warn',
-      '@typescript-eslint/no-unsafe-argument': 'warn'
+      'no-console': 1,
+      'prettier/prettier': 0,
+      "@typescript-eslint/no-floating-promises": "off"
     },
   },
 );
