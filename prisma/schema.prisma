@@ -23,9 +23,9 @@ model User {
   name     String?
   password String
 
-  workInterval  Int? @default(50)
-  breakInterval Int? @default(10)
-  intervalsCont Int? @default(7)
+  workInterval  Int? @default(50) @map("work_interval")
+  breakInterval Int? @default(10) @map("break_interval")
+  intervalsCont Int? @default(7) @map("intervals_cont")
 
   tasks            Task[]
   timeBlocks       TimeBlock[]
@@ -84,7 +84,7 @@ model PomodoroRound {
   cratedAt  DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  totalSeconds Int
+  totalSeconds Int      @map("total_seconds")
   isCompleted  Boolean? @default(false) @map("is_completed")
 
   pomodoroSession   PomodoroSession @relation(fields: [pomodoroSessionId], references: [id], onDelete: Cascade)
