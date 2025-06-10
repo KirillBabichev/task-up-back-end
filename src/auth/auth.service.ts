@@ -24,6 +24,24 @@ export class AuthService {
         }
     }
 
+    async register(dto: AuthDto) {
+        const userExist = await this.userService.getByEmail(dto.email);
+
+        if (userExist) {
+            throw new UnauthorizedException('User already exists');
+        }
+
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password, ...user } = await this.userService.create(dto);
+
+        const tokens = this.issueTokens(user.id);
+
+        return {
+            user,
+            ...tokens
+        }
+    }
+
     private issueTokens(userId: string) {
         const data = { id: userId };
 
