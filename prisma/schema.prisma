@@ -16,7 +16,7 @@ datasource db {
 
 model User {
   id        String   @id @default(cuid())
-  cratedAt  DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   email    String  @unique
@@ -36,7 +36,7 @@ model User {
 
 model Task {
   id        String   @id @default(cuid())
-  cratedAt  DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   name        String
@@ -51,7 +51,7 @@ model Task {
 
 model TimeBlock {
   id        String   @id @default(cuid())
-  cratedAt  DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   name     String
@@ -67,7 +67,7 @@ model TimeBlock {
 
 model PomodoroSession {
   id        String   @id @default(cuid())
-  cratedAt  DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   isCompleted Boolean? @default(false) @map("is_completed")
@@ -81,7 +81,7 @@ model PomodoroSession {
 
 model PomodoroRound {
   id        String   @id @default(cuid())
-  cratedAt  DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   totalSeconds Int      @map("total_seconds")

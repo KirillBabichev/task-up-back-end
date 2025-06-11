@@ -1,6 +1,6 @@
 import { Body, Controller, HttpCode, Post, Req, Res, UnauthorizedException, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthDto } from './decorators/auth.dto';
+import { AuthDto } from './dto/auth.dto';
 import { Request, Response } from 'express';
 
 @Controller('auth')
