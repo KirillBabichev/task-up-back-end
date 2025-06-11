@@ -1,6 +1,7 @@
-import { Body, Controller, HttpCode, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post, Req, Res, UnauthorizedException, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthDto } from './decorators/auth.dto';
+import { Request, Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -9,7 +10,52 @@ export class AuthController {
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
   @Post('login')
-  async login(@Body() dto: AuthDto) {
-    return this.authService.login(dto);
+  async login(
+    @Body() dto: AuthDto,
+    @Res({ passthrough: true }) res: Response) {
+    const { refreshToken, ...response } = await this.authService.login(dto);
+    this.authService.addRefreshTokenToResponse(res, refreshToken)
+
+    return response
+  }
+
+  @HttpCode(200)
+  @Post('login/access-token')
+  async getNewToken(
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response) {
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const refreshTokenCookie = req.cookies[this.authService.REFRESH_TOKEN_NAME]
+
+    if (!refreshTokenCookie) {
+      throw new UnauthorizedException('Refresh token not passed');
+    }
+
+    const { refreshToken, ...response } = await this.authService.getNewTokens(refreshTokenCookie);
+
+    this.authService.addRefreshTokenToResponse(res, refreshToken)
+
+    return response
+  }
+
+  @UsePipes(new ValidationPipe())
+  @HttpCode(200)
+  @Post('register')
+  async register(
+    @Body() dto: AuthDto,
+    @Res({ passthrough: true }) res: Response) {
+    const { refreshToken, ...response } = await this.authService.register(dto);
+    this.authService.addRefreshTokenToResponse(res, refreshToken)
+
+    return response
+  }
+
+  @HttpCode(200)
+  @Post('logout')
+  async logout(
+    @Res({ passthrough: true }) res: Response) {
+    this.authService.removeRefreshTokenFromResponse(res)
+    return true
   }
 }
