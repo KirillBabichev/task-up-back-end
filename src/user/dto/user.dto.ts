@@ -1,6 +1,6 @@
 import { IsEmail, IsNumber, IsOptional, IsString, Max, Min, MinLength } from "class-validator";
 
-export class PomodoroSettingDto {
+export class TimerSettingDto {
     @IsOptional()
     @IsNumber()
     @Min(1)
@@ -18,7 +18,7 @@ export class PomodoroSettingDto {
     intervalCount?: number
 }
 
-export class UserDto extends PomodoroSettingDto {
+export class UserDto extends TimerSettingDto {
     @IsEmail()
     @IsOptional()
     email: string;
