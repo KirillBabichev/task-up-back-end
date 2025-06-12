@@ -94,6 +94,7 @@ export class UserService {
   async update(id: string, dto: UserDto) {
     let data = dto;
 
+    //Todo: validate before updating
     if (dto?.password) {
       data = { ...dto, password: await hash(dto.password) }
     }
