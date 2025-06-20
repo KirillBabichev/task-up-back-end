@@ -15,7 +15,7 @@ export class TimerSettingDto {
     @IsNumber()
     @Min(1)
     @Max(10)
-    intervalCount?: number
+    intervalsCount?: number
 }
 
 export class UserDto extends TimerSettingDto {
