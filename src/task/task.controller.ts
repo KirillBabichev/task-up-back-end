@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { CurrentUser } from 'src/auth/decorators/user.decorators';
 import { Auth } from 'src/auth/decorators/auth.decorators';
@@ -25,7 +25,7 @@ export class TaskController {
 
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
-  @Post(':id')
+  @Put(':id')
   @Auth()
   async update(
     @Body() dto: TaskDto,

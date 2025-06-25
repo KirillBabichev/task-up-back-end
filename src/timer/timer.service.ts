@@ -38,7 +38,7 @@ export class TimerService {
         id: userId
       },
       select: {
-        intervalsCont: true
+        intervalsCount: true
       },
     })
 
@@ -51,7 +51,7 @@ export class TimerService {
         rounds: {
           createMany: {
             data: Array.from({
-              length: user.intervalsCont ?? 0
+              length: user.intervalsCount ?? 0
             }, () => ({
               totalSeconds: 0,
             })),
